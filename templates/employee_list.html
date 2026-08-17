@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Список сотрудников{% endblock %}
+{% block content %}
+  <h1>Список сотрудников</h1>
+  <div class="cards">
+    {% for emp in employees %}
+      <div class="card">
+        <h3>{{ emp.first_name }} {{ emp.last_name }}</h3>
+        <p>Пол: {{ emp.get_gender_display|default:"Не указан" }}</p>
+        <p>
+          Навыки:
+          {% for s in emp.skills_through.all %}
+            {{ s.skill.name }} ({{ s.level }})
+            {% if not forloop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+        <a href="{% url 'employee_detail' emp.pk %}">Перейти к карточке</a>
+      </div>
+    {% empty %}
+      Список пуст.
+    {% endfor %}
+  </div>
+{% endblock %}

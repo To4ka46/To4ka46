@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Добавить фото — {{ employee.first_name }} {{ employee.last_name }}{% endblock %}
+
+{% block content %}
+  <h1>Добавить фото для {{ employee.first_name }} {{ employee.last_name }}</h1>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <p>
+      <label>Фото (выберите несколько файлов):</label><br>
+      {{ form.images }}
+      <br>
+      <small>Удерживайте Ctrl/Cmd при выборе, чтобы загрузить сразу несколько.</small>
+    </p>
+
+    <p>
+      <label>Начать нумерацию с:</label><br>
+      {{ form.order_start }}
+      <small>Если оставить пустым, нумерация продолжится после последнего фото.</small>
+    </p>
+
+    <button type="submit">Загрузить фото</button>
+  </form>
+
+  <hr>
+  <a href="{% url 'employee_detail' employee.pk %}">Вернуться к карточке сотрудника</a>
+{% endblock %}

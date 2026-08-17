@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+  <h1>Добро пожаловать</h1>
+  <p>Описание проекта: система карточек сотрудников с навыками и галереей.</p>
+
+  <h2>Избранные сотрудники</h2>
+  <div class="cards">
+    {% for emp in employees %}
+      <div class="card">
+        <h3>{{ emp.first_name }} {{ emp.last_name }}</h3>
+        <p>Навыки:
+          {% for s in emp.skills_through.all %}
+            {{ s.skill.name }} (уровень {{ s.level }})
+            {% if not forloop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+        <a href="{% url 'employee_detail' emp.pk %}">Подробнее</a>
+      </div>
+    {% empty %}
+      Нет сотрудников.
+    {% endfor %}
+  </div>
+{% endblock %}

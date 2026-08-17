@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ employee.first_name }} {{ employee.last_name }}{% endblock %}
+{% block content %}
+  <h1>{{ employee.first_name }} {{ employee.last_name }}</h1>
+  <p>Пол: {{ employee.get_gender_display|default:"Не указан" }}</p>
+  {% if employee.description %}
+    <p><strong>О себе:</strong> {{ employee.description }}</p>
+  {% endif %}
+
+  <h2>Навыки</h2>
+  <ul>
+    {% for es in skills %}
+      <li>{{ es.skill.name }} — уровень {{ es.level }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Галерея</h2>
+  <div class="gallery">
+    {% for img in images %}
+      <img src="{{ img.image.url }}" alt="Image {{ img.order }}" style="max-width: 300px;">
+    {% empty %}
+      Нет изображений.
+    {% endfor %}
+  </div>
+{% endblock %}
