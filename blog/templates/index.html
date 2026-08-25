@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Мой блог{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <h1>Мой блог</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Главная</a>
+            <a href="{{ url_for('diary') }}">Дневник программиста</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}
+            <h2>Темы блога</h2>
+            <table class="topics-table">
+                {% for topic in topics %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ topic }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2026 Мой блог</p>
+    </footer>
+</body>
+</html>
